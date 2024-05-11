@@ -7,6 +7,18 @@ body {
 h1,p {
     color: #333;
 }
+.h1-center {
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    text-align: center;
+}
+.title-top {
+    text-decoration: none;
+    color: #333;
+}
+.title-top:hover {
+    color: lightseagreen;
+}
 p {
     font-style: italic;
 }

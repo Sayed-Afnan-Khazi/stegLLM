@@ -38,14 +38,76 @@ body {
     width: 70vw;
     overflow-y: scroll;
     border: solid 1px black;
+    border-radius: 20px 30px;
 }
+
+.prompt-form {
+    display: flex;
+    flex-direction: row;
+    width: 70vw;
+    margin-top: 1vh;
+}
+
+#prompt {
+    width: 85%;
+    padding: 13px;
+    padding-left: 20px;
+    border: 1px solid #ccc;
+    font-size: 1.1rem;
+    border-radius: 20px 0 0 20px;
+}
+#send-btn {
+    width: 15%;
+    background-color: lightseagreen;
+    color: white;
+    border: 1px solid seagreen;
+    border-radius: 0 20px 20px 0;
+    font-size: 1.1rem;
+}
+#send-btn:hover {
+    cursor: pointer;
+    background-color: rgb(29, 157, 151);
+}
+
 @media screen and (max-width: 700px) {
-    .chat-history {
+    .chat-history,.title-with-btn,.prompt-form {
         width: 90vw;
     }
     .title-with-btn {
-        width: 90vw;
         justify-content: space-between;
+    }
+    #prompt {
+        width: 80%;
+        font-size: 1rem;
+    }
+    #send-btn {
+        width: 20%;
+        font-size: 1rem;
+    }
+}
+@media screen and (max-width: 500px) {
+    #prompt {
+        width: 70%;
+    }
+    #send-btn {
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 300px){
+    .title-with-btn {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+    .title-with-btn > h1 {
+        width: 100%;
+        text-align: center;
+        font-size: 1.5rem;
+    }
+    .logout-btn {
+        padding: 8px 8px;
+        text-align: center;
     }
 }
 .message {

@@ -11,6 +11,7 @@
     <div class="container">
         <h1>Welcome to ChatBot 7</h1>
         <p>Your Personal AI Assistant</p>
+        <img src="{{ url_for('static', filename='chatbot.png') }}" alt="ChatBot 7" class="chatbot-image"><br>
         <a href="{{ url_for('register') }}" class="cta-button btn-blue">Get Started - Register</a>
         {% if loggedIn %}
             <a href="{{ url_for('chat') }}" class="cta-button btn-green">Go to Chat</a>

@@ -22,9 +22,9 @@
             {% endfor %}
         </div>
         <div class="prompt-container">
-            <form method="POST">
-                <input name="prompt" type="text" placeholder="Enter a message here..." required autofocus autocomplete="off">
-                <button type="submit">Send</button>
+            <form class="prompt-form" method="POST">
+                <input id="prompt" name="prompt" type="text" placeholder="Ask me anything..." required autofocus autocomplete="off">
+                <button id="send-btn" type="submit">Send</button>
             </form>
         </div>
     </div>

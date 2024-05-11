@@ -12,6 +12,10 @@ body {
     text-align: center;
 }
 
+.chatbot-image {
+    margin-bottom: 15px;
+}
+
 h1 {
     color: #333;
     font-size: 36px;
@@ -27,6 +31,7 @@ p {
 .cta-button {
     display: inline-block;
     padding: 10px 20px;
+    margin: 10px;
     background-color: #007bff;
     color: #fff;
     text-decoration: none;

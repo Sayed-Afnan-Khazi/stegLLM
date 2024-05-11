@@ -98,9 +98,7 @@ def login():
 def logout():
     if 'user' in session:
         session.pop('user')
-        return redirect('/login')
-    else:
-        return render_template('/')
+    return redirect('/')
 
 @app.route('/chat', methods=['GET','POST'])
 def chat():
