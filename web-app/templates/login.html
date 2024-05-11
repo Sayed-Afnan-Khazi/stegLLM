@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - ChatBot7</title>
+    <style>
+        .flash-red {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>Login</h2>
+    {% if messages %}
+        <ul class="flash-red">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    <form method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>
