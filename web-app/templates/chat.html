@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - ChatBot 7</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='chat.css') }}">
+</head>
+<body>
+    <div class="app">
+        <div class="title-with-btn"><h1>ChatBot 7 - Your Helpful Chatbot.</h1><a class="logout-btn" href="{{ url_for('logout') }}">Logout</a></div>
+        <div class="chat-history">
+            {% for message in messages %}
+            <div class="message {{message[1]}}">
+                <p class="message-content">{{ message[2] }}</p>
+                <div class="subtitle">
+                    <p class="author">{{ message[1] }}</p>
+                    <p class="timestamp">{{ message[0] }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="prompt-container">
+            <form method="POST">
+                <input name="prompt" type="text" placeholder="Enter a message here..." required autofocus autocomplete="off">
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        // Scroll to the bottom of the chat history
+        const chatHistory = document.querySelector('.chat-history');
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+    </script>
+</body>
+</html>

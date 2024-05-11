@@ -1,29 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - ChatBot7</title>
-    <style>
-        .flash-red {
-            color: red;
-        }
-    </style>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='forms.css') }}">
 </head>
 <body>
-    <h2>Login</h2>
-    {% if messages %}
-        <ul class="flash-red">
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
-    {% endif %}
     <form method="POST">
+        <h1>Login</h1>
+        {% if message %}
+            <p class="flash-red">{{ message }}</p>
+        {% endif %}
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
         
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br><br>
-        
+        <p>New User?<a href="{{ url_for('register') }}">Create a new account</a></p>
         <input type="submit" value="Login">
     </form>
 </body>

@@ -1,5 +1,5 @@
 # Flask 
-from flask import Flask, request, render_template, session , redirect
+from flask import Flask, request, render_template, session , redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 # Our custom chat wrap API
@@ -15,7 +15,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 load_dotenv()
 
-app = Flask(__name__, template_folder='./templates')
+app = Flask(__name__, template_folder='./templates', static_folder='./static')
 app.secret_key = os.environ.get('APP_SECRET_KEY')
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -26,7 +26,7 @@ db = SQLAlchemy(app)
 # Set up the chat API
 API_URL = os.environ.get('API_URL')
 API_TOKEN = os.environ.get('API_TOKEN')
-chat = chat_wrap(API_URL,API_TOKEN)
+chat_obj = chat_wrap(API_URL,API_TOKEN)
 
 class Users(db.Model):
     __tablename__ = "Users"
@@ -49,10 +49,7 @@ def get_user_messages(user_id):
 @app.route('/')
 def home():
     # Need to add a home page
-    if 'user' in session:
-        return redirect('/chat')
-    else:
-        return redirect('/login')
+    return render_template('index.html',loggedIn='user' in session)
 
 @app.route('/register', methods=['GET','POST'])
 def register():
@@ -65,7 +62,7 @@ def register():
         username = request.form['username']
         password = request.form['password']
         if Users.query.filter_by(username=username).first() is not None:
-            return render_template('register.html',message="Username already exists.")
+            return render_template('register.html',message="User already exists.")
         else:
             # Add to the database
             user = Users(username=username,password=password)
@@ -106,34 +103,35 @@ def logout():
         return render_template('/')
 
 @app.route('/chat', methods=['GET','POST'])
-def main():
+def chat():
     if 'user' not in session:
         return redirect('/login')
     if request.method == 'GET':
         messages = get_user_messages(session['user'])
-        return render_template("index.html",messages=messages)
+        return render_template("chat.html",messages=messages)
     elif request.method == 'POST':
         prompt = request.form['prompt']
         if prompt != '':
             try:
                 # try for file handling
-                fobj = open('./data/messages/'+session['user']+'.csv','a')
+                fobj = open('./data/messages/'+str(session['user'])+'.csv','a')
                 writer = csv.writer(fobj)
                 try:
                     # Try for get chat request
                     writer.writerow([datetime.now(),'User',prompt])
-                    res = chat.get_response(prompt)
+                    res = chat_obj.get_response(prompt)
                     if res == "The model is currently loading. Please try again in a few seconds.":
                         writer.writerow([datetime.now(),'System',res])
                     else:
                         writer.writerow([datetime.now(),'Bot',res])
-                except:
+                except Exception as e:
+                    print("An error occurred while trying to get a response from the chat API.", e)
                     writer.writerow([datetime.now(),'System','An error occurred. Please try again.'])
                 fobj.close()
-            except:
-                print("A CATASTRPOHIC ERROR OCCURRED!")
+            except Exception as e:
+                print("A CATASTRPOHIC ERROR OCCURRED!", e)
         messages = get_user_messages(session['user'])
-        return render_template("index.html",messages=messages)
+        return render_template("chat.html",messages=messages)
 
 if __name__ == '__main__':
     app.run(debug=True)

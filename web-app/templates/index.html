@@ -3,99 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatBot 7</title>
-    <style>
-        .app {
-            height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .chat-history {
-            display: flex;
-            flex-direction: column;
-            height: 80vh;
-            width: 70vw;
-            overflow-y: scroll;
-            border: solid 1px black;
-        }
-        .message {
-            min-width: 30%;
-            max-width: 70%;
-            display: flex;
-            flex-direction: column;
-            margin: 10px;
-            padding: 10px;
-            border: solid 2px black;
-            border-radius: 30px;
-            background-color: aliceblue;
-        }
-        .System {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            align-self: center;
-            background-color: lightgoldenrodyellow;
-        }
-        .User {
-            display: flex;
-            align-self: flex-end;
-            border-radius: 30px 30px 5px 30px;
-        }
-        .Bot {
-            display: flex;
-            align-self: flex-start;
-            border-radius: 5px 30px 30px 30px;
-        }
-
-        .subtitle {
-            width: 100%;
-            border-top: solid 1px #ccc;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .subtitle > p {
-            margin: 2px;
-        }
-        .author {
-            font-size: 0.9em;
-            color: #777;
-        }
-        .timestamp {
-            font-size: 0.6em;
-            color: #666;
-            /* align-self: flex-end; */
-        }
-
-    </style>
+    <title>ChatBot 7 - Your AI Assistant.</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div class="app">
-        <h1>ChatBot 7 - Your helpful chatbot.</h1>
-        <div class="chat-history">
-            {% for message in messages %}
-            <div class="message {{message[1]}}">
-                <p class="message-content">{{ message[2] }}</p>
-                <div class="subtitle">
-                    <p class="author">{{ message[1] }}</p>
-                    <p class="timestamp">{{ message[0] }}</p>
-                </div>
-                
-            </div>
-            {% endfor %}
-        </div>
-        <div class="prompt-container">
-            <form method="POST">
-                <input name="prompt" type="text" placeholder="Enter a message here...">
-                <button type="submit">Send</button>
-            </form>
-        </div>
+    <div class="container">
+        <h1>Welcome to ChatBot 7</h1>
+        <p>Your Personal AI Assistant</p>
+        <a href="{{ url_for('register') }}" class="cta-button btn-blue">Get Started - Register</a>
+        {% if loggedIn %}
+            <a href="{{ url_for('chat') }}" class="cta-button btn-green">Go to Chat</a>
+        {% else %}
+            <a href="{{ url_for('login') }}" class="cta-button btn-green">Login</a>
+        {% endif %}
     </div>
-    <script>
-        const chatHistory = document.querySelector('.chat-history');
-        chatHistory.scrollTop = chatHistory.scrollHeight;
-    </script>
 </body>
 </html>
