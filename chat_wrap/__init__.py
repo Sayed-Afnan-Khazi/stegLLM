@@ -25,9 +25,10 @@ class chat_wrap:
                 if "Model" in data["error"] and "is currently loading" in data["error"]:
                     return "The model is currently loading. Please try again in a few seconds."
                 else:
+                    print("ERROR: ",data)
                     raise RuntimeError
         except:
-            return ConnectionError('An Error Occurred. Please try again.')
+            raise ConnectionError('An Error Occurred. Please try again.')
 
 # while True:
 #         prompt = input("User > ")
